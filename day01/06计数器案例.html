@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <script src="./lib/react.js"></script>
+  <script src="./lib/react_dom.js"></script>
+  <script src="./lib/babel.js"></script>
+  <script type="text/babel">
+    class App extends React.Component{
+      constructor(){
+        super()
+        this.state = {
+          messages:'Hello World',
+          count:100
+        }
+        this.addCount = this.addCount.bind(this)
+        this.decreate = this.decreate.bind(this)
+      }
+      addCount(){
+        this.setState({
+          count:this.state.count+1
+        })
+      }
+      decreate(){
+        this.setState({
+          count:this.state.count-1
+        })
+      }
+      render(){
+        const {count} = this.state
+        return (
+          <div>
+            <h2>{count}</h2>
+            <button onClick={this.addCount}>+1</button>
+            <button onClick={this.decreate}>-1</button>
+        </div>
+        )
+      }
+    }
+    // 
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    // 相当于整个程序根组件
+    root.render(<App/>)
+    </script>
+  </div>
+</body>
+</html>

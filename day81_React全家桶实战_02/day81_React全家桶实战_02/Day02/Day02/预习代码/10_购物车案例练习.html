@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn React</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    thead {
+      background-color: #fafafa;
+    }
+
+    td, th {
+      border: 1px solid #eee;
+      padding: 8px 12px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script src="./lib/react.js"></script>
+  <script src="./lib/react_dom.js"></script>
+  <script src="./lib/babel.js"></script>
+  <script src="./data.js"></script>
+
+  <script type="text/babel">
+    // 1.定义根组件
+    class App extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          message: "Hello App",
+          books: books
+        }
+      }
+
+      getTotalPrice() {
+        let totalPrice = 0
+        for (const book of this.state.books) {
+          totalPrice += book.count * book.price
+        }
+
+        return "总价格:" + totalPrice
+      }
+
+      removeItem(index) {
+        const newBooks = [...this.state.books]
+        newBooks.splice(index, 1)
+        this.setState({ books: newBooks })
+      }
+
+      increment = (index, counter) => {
+        // const newBooks = [...this.state.books]
+
+        this.state.books[index].count += counter
+        // newBooks[index].count++
+        this.setState({
+          books: this.state.books
+        })
+      }
+
+      decrement = (index) => {
+        console.log(index);
+      }
+
+      render() {
+        const { books } = this.state
+
+        return (
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>书籍名词</th>
+                  <th>出版日期</th>
+                  <th>价格</th>
+                  <th>购买数量</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  books.map((item, index) => {
+                    return (
+                      <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.date}</td>
+                        <td>¥{item.price}</td>
+                        <td>
+                          <button disabled={item.count <= 1} onClick={e => this.increment(index, -1)}>-</button>
+                          {item.count}
+                          <button onClick={e => this.increment(index, 1)}>+</button>
+                        </td>
+                        <td><button onClick={e => this.removeItem(index)}>移除</button></td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+            <h2>{this.getTotalPrice()}</h2>
+          </div>
+        )
+      }
+    }
+
+    // 2.渲染根组件
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    root.render(<App/>)
+  </script>
+
+</body>
+</html>

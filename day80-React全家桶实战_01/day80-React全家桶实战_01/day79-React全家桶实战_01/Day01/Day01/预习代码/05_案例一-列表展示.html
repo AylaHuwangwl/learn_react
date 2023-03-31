@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn React</title>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script src="./lib/react.js"></script>
+  <script src="./lib/react_dom.js"></script>
+  <script src="./lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1.定义根组件
+    class App extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          message: "Hello App",
+          movies: ["星际穿越", "大话西游", "盗梦空间", "少年派的奇幻漂流"]
+        }
+      }
+
+      render() {
+        return (
+          <ul>
+            {
+              this.state.movies.map(item => {
+                return <li key={item}>{item}</li>
+              })
+            }
+          </ul>
+        )
+      }
+    }
+
+    // 2.渲染根组件
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    root.render(<App/>)
+  </script>
+
+</body>
+</html>

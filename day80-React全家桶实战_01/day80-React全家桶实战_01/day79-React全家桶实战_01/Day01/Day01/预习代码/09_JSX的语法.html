@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn React</title>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script src="./lib/react.js"></script>
+  <script src="./lib/react_dom.js"></script>
+  <script src="./lib/babel.js"></script>
+
+  <script type="text/babel">
+    // 1.定义根组件
+    class App extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          counter: 0,
+          message: "Hello App",
+          names: ["abc", "cba"],
+          friend: {
+            name: "kobe"
+          }
+        }
+
+        this.btn1Click = this.btn1Click.bind(this)
+      }
+
+      render() {
+        const _this = this
+
+        const element = React.createElement(
+          "div",
+          {
+            className: "app"
+          },
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "header"
+            },
+            "header"
+          ),
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "content"
+            },
+            /*#__PURE__*/ React.createElement(
+              "h2",
+              null,
+              "\u5F53\u524D\u8BA1\u6570: ",
+              this.state.counter
+            ),
+            /*#__PURE__*/ React.createElement(
+              "button",
+              {
+                onClick: function onClick() {
+                  return _this.increment();
+                }
+              },
+              "+1"
+            ),
+            /*#__PURE__*/ React.createElement(
+              "button",
+              {
+                onClick: function onClick() {
+                  return _this.decrement();
+                }
+              },
+              "-1"
+            )
+          )
+        );
+
+        console.log(element);
+
+        return element
+      }
+
+      increment() {
+        this.setState({ counter: this.state.counter + 1 })
+      }
+
+      decrement() {
+        this.setState({ counter: this.state.counter - 1 })
+      }
+
+      btn1Click(event, name, age) {
+        console.log(this, event, name, age);
+      }
+    }
+
+    // 2.渲染根组件
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    root.render(<App/>)
+  </script>
+
+</body>
+</html>

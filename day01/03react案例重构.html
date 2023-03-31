@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="./lib/react.js"></script>
+  <script src="./lib/react_dom.js"></script>
+  <script src="./lib/babel.js"></script>
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          meaasge: 'HelloWorld'
+        }
+        this.changeText = this.changeText.bind(this)
+      }
+      // 组件实例方法
+      changeText(){
+        // 默认情况下this指向undefined
+        // 将state中的值修改掉，自动重新执行render函数
+        this.setState({
+          meaasge:'Hello React'
+        })
+      }
+      render() {
+        // 这个render中的this是当前的组件实例
+        console.log('render中的this:',this)
+        return (
+          <div>
+            <h2>{this.state.meaasge}</h2>
+            <button onClick={this.changeText}>修改文案</button>
+          </div>
+        )
+      }
+    }
+
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    // 相当于整个程序根组件
+    root.render(<App />)
+  </script>
+</body>
+
+</html>

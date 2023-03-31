@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <script src="./lib/react.js"></script>
+  <script src="./lib/react_dom.js"></script>
+  <script src="./lib/babel.js"></script>
+  <script type="text/babel">
+    class App extends React.Component{
+      constructor(){
+        super()
+        this.state = {
+          messages:'Hello World'
+        }
+      }
+      render(){
+        const {messages} = this.state
+        return (
+          <div>
+            <h2>{messages}</h2>
+        </div>
+        )
+      }
+    }
+    // 
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    // 相当于整个程序根组件
+    root.render(<App />)
+
+
+
+    // jsx是React.createElement(component,props,...children)函数的语法糖，所有jsx最终都会被转换成React.createElement的调用
+    </script>
+  </div>
+</body>
+</html>

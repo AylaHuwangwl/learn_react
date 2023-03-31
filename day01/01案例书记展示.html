@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    thead {
+      background-color: #fafafa;
+    }
+
+    td, th {
+      border: 1px solid #eee;
+      padding: 8px 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <script src="./lib/react.js"></script>
+    <script src="./lib/react_dom.js"></script>
+    <script src="./lib/babel.js"></script>
+    <script src="./data.js"></script>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            books: books
+          }
+        }
+        render() {
+          const { books } = this.state
+          // console.log(books)
+          // 计算总价格方式一
+          // let totalPrice = 0
+          // for(let item of books){
+          //   totalPrice = totalPrice+item.price*item.count
+          // }
+          // 计算总价格方式二
+        const totalPrice =  books.reduce((preValue,item)=>{
+            return preValue + item.count*item.price
+          },0)
+          return (
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>书籍名称</th>
+                    <th>出版日期</th>
+                    <th>价格</th>
+                    <th>购买数量</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {books.map((item,index)=>{
+                    return (
+                      <tr key={item.id}>
+                        <td>{index+1}</td>  
+                        <td>{item.name}</td>  
+                        <td>{item.date}</td>  
+                        <td>￥{item.price.toFixed(2)}</td>  
+                        <td><button>-</button>{item.count}<button>+</button></td>  
+                        <td><button>删除</button></td>  
+                      </tr>
+                    )
+                  })}  
+                </tbody>
+              </table>
+              <h2>总价格：￥{totalPrice.toFixed(2)}</h2>
+            </div>
+          )
+        }
+      }
+      // 
+      const root = ReactDOM.createRoot(document.querySelector("#root"))
+      // 相当于整个程序根组件
+      root.render(<App />)
+    </script>
+  </div>
+</body>
+
+</html>
